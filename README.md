@@ -20,6 +20,10 @@ Open terminal, cd to your project directory, run pod repo update to make CocoaPo
   print('removeByKey \'Int\': ${await mmkv.removeByKey('Int')}');
   print('totalSize: ${await mmkv.totalSize()}');
   
+  // Generic methods
+  print('setInt: ${await mmkv1.set('Int', 9223372036854775807)}');
+  print('getInt: ${await mmkv1.get<int>('Int')}');
+  
   print('setInt: ${await mmkv.setInt('Int', 9223372036854775807)}');
   print('setInt: ${await mmkv.getInt('Int')}');
   

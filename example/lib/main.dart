@@ -153,12 +153,12 @@ class _MyAppState extends State<MyApp> {
                     child: Text('setInt'),
                     onPressed: () async {
                       print(
-                          'setInt: ${await mmkv1.setInt('Int', 9223372036854775807)}');
+                          'setInt: ${await mmkv1.set('Int', 9223372036854775807)}');
                     }),
                 RaisedButton(
                     child: Text('getInt'),
                     onPressed: () async {
-                      print('getInt: ${await mmkv1.getInt('Int')}');
+                      print('getInt: ${await mmkv1.get<int>('Int')}');
                     }),
               ],
             ),
@@ -168,12 +168,12 @@ class _MyAppState extends State<MyApp> {
                 RaisedButton(
                     child: Text('setBool'),
                     onPressed: () async {
-                      print('setBool: ${await mmkv1.setBool('Bool', true)}');
+                      print('setBool: ${await mmkv1.set('Bool', true)}');
                     }),
                 RaisedButton(
                     child: Text('getBool'),
                     onPressed: () async {
-                      print('getBool: ${await mmkv1.getBool('Bool')}');
+                      print('getBool: ${await mmkv1.get<bool>('Bool')}');
                     }),
               ],
             ),
@@ -184,12 +184,12 @@ class _MyAppState extends State<MyApp> {
                     child: Text('setDouble'),
                     onPressed: () async {
                       print(
-                          'setDouble: ${await mmkv1.setDouble('Double', double.maxFinite)}');
+                          'setDouble: ${await mmkv1.set('Double', double.maxFinite)}');
                     }),
                 RaisedButton(
                     child: Text('getDouble'),
                     onPressed: () async {
-                      print('getDouble: ${await mmkv1.getDouble('Double')}');
+                      print('getDouble: ${await mmkv1.get<double>('Double')}');
                     }),
               ],
             ),
@@ -200,12 +200,12 @@ class _MyAppState extends State<MyApp> {
                     child: Text('setString'),
                     onPressed: () async {
                       print(
-                          'setString: ${await mmkv1.setString('String', 'Hello, world!')}');
+                          'setString: ${await mmkv1.set('String', 'Hello, world!')}');
                     }),
                 RaisedButton(
                     child: Text('getString'),
                     onPressed: () async {
-                      print('getString: ${await mmkv1.getString('String')}');
+                      print('getString: ${await mmkv1.get<String>('String')}');
                     }),
               ],
             ),
@@ -215,7 +215,7 @@ class _MyAppState extends State<MyApp> {
                 RaisedButton(
                     child: Text('setUint8List'),
                     onPressed: () async {
-                      print('setUint8List: ${await mmkv1.setUint8List(
+                      print('setUint8List: ${await mmkv1.set(
                         'Uint8List',
                         Uint8List.fromList(
                           [1, 2, 3],
@@ -226,7 +226,7 @@ class _MyAppState extends State<MyApp> {
                     child: Text('getUint8List'),
                     onPressed: () async {
                       print(
-                          'getUint8List: ${await mmkv1.getUint8List('Uint8List')}');
+                          'getUint8List: ${await mmkv1.get<Uint8List>('Uint8List')}');
                     }),
               ],
             ),

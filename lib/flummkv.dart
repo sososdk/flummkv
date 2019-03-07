@@ -15,6 +15,26 @@ class Flummkv {
 
   Flummkv._();
 
+  static Future<T> get<T>(
+    String key, {
+    String id,
+    String crypt,
+  }) {
+    if (T == bool) {
+      return getBool(key, id: id, crypt: crypt) as Future<T>;
+    } else if (T == int) {
+      return getInt(key, id: id, crypt: crypt) as Future<T>;
+    } else if (T == double) {
+      return getDouble(key, id: id, crypt: crypt) as Future<T>;
+    } else if (T == String) {
+      return getString(key, id: id, crypt: crypt) as Future<T>;
+    } else if (T == Uint8List) {
+      return getUint8List(key, id: id, crypt: crypt) as Future<T>;
+    } else {
+      throw TypeError();
+    }
+  }
+
   /// Reads a value from persistent storage, throwing an exception if it's not a bool.
   static Future<bool> getBool(
     String key, {
@@ -83,6 +103,27 @@ class Flummkv {
       KEY: key,
     };
     return _channel.invokeMethod('getBytes', params);
+  }
+
+  static Future<bool> set<T>(
+    String key,
+    T value, {
+    String id,
+    String crypt,
+  }) {
+    if (T == bool) {
+      return setBool(key, value as bool, id: id, crypt: crypt);
+    } else if (T == int) {
+      return setInt(key, value as int, id: id, crypt: crypt);
+    } else if (T == double) {
+      return setDouble(key, value as double, id: id, crypt: crypt);
+    } else if (T == String) {
+      return setString(key, value as String, id: id, crypt: crypt);
+    } else if (T == Uint8List) {
+      return setUint8List(key, value as Uint8List, id: id, crypt: crypt);
+    } else {
+      throw TypeError();
+    }
   }
 
   /// Saves a boolean [value] to persistent storage in the background.
@@ -260,6 +301,14 @@ class Mmkv {
 
   Mmkv({this.id, this.crypt});
 
+  Future<T> get<T>(
+    String key, {
+    String id,
+    String crypt,
+  }) {
+    return Flummkv.get(key, id: id, crypt: crypt);
+  }
+
   /// Reads a value from persistent storage, throwing an exception if it's not a bool.
   Future<bool> getBool(String key) {
     return Flummkv.getBool(key, id: id, crypt: crypt);
@@ -283,6 +332,15 @@ class Mmkv {
   /// Reads a value from persistent storage, throwing an exception if it's not a `Uint8List`.
   Future<Uint8List> getUint8List(String key) {
     return Flummkv.getUint8List(key, id: id, crypt: crypt);
+  }
+
+  Future<bool> set<T>(
+    String key,
+    T value, {
+    String id,
+    String crypt,
+  }) {
+    return Flummkv.set(key, value, id: id, crypt: crypt);
   }
 
   /// Saves a boolean [value] to persistent storage in the background.
