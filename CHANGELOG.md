@@ -1,3 +1,7 @@
+## 1.0.19
+
+* Fixed: Remove `id` `crypt` params from Mmkv.get() and Mmkv.set()
+
 ## 1.0.18
 
 * Add generic methods

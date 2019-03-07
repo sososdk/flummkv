@@ -301,11 +301,7 @@ class Mmkv {
 
   Mmkv({this.id, this.crypt});
 
-  Future<T> get<T>(
-    String key, {
-    String id,
-    String crypt,
-  }) {
+  Future<T> get<T>(String key) {
     return Flummkv.get(key, id: id, crypt: crypt);
   }
 
@@ -334,12 +330,7 @@ class Mmkv {
     return Flummkv.getUint8List(key, id: id, crypt: crypt);
   }
 
-  Future<bool> set<T>(
-    String key,
-    T value, {
-    String id,
-    String crypt,
-  }) {
+  Future<bool> set<T>(String key, T value) {
     return Flummkv.set(key, value, id: id, crypt: crypt);
   }
 
