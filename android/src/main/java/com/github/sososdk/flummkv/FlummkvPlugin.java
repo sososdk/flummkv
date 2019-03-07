@@ -1,0 +1,135 @@
+package com.github.sososdk.flummkv;
+
+import android.content.Context;
+import com.tencent.mmkv.MMKV;
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
+import io.flutter.plugin.common.MethodChannel.Result;
+import io.flutter.plugin.common.PluginRegistry.Registrar;
+import java.util.Arrays;
+import java.util.Map;
+
+/** FlummkvPlugin */
+public class FlummkvPlugin implements MethodCallHandler {
+  public static final String ID = "id";
+  public static final String CRYPT = "crypt";
+  public static final String KEY = "key";
+  public static final String VALUE = "value";
+
+  public FlummkvPlugin(Context context) {
+    MMKV.initialize(context);
+  }
+
+  /** Plugin registration. */
+  public static void registerWith(Registrar registrar) {
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), "com.github.sososdk/flummkv");
+    channel.setMethodCallHandler(new FlummkvPlugin(registrar.context()));
+  }
+
+  @Override
+  public void onMethodCall(MethodCall call, Result result) {
+    String method = call.method;
+    Map<String, Object> arguments = (Map<String, Object>) call.arguments;
+
+    String mmapID = (String) arguments.get(ID);
+    String crypt = (String) arguments.get(CRYPT);
+    String key = (String) arguments.get(KEY);
+    Object value = arguments.get(VALUE);
+    try {
+      MMKV mmkv;
+      if (mmapID == null) {
+        mmkv = MMKV.defaultMMKV(MMKV.SINGLE_PROCESS_MODE, crypt);
+      } else {
+        mmkv = MMKV.mmkvWithID(mmapID, MMKV.SINGLE_PROCESS_MODE, crypt, null);
+      }
+      if (mmkv == null) {
+        result.error("MMKVException", "MMKV is null.", null);
+        return;
+      }
+      switch (method) {
+        case "setBool":
+          boolean setBoolStatus = mmkv.encode(key, (boolean) value);
+          result.success(setBoolStatus);
+          break;
+        case "getBool":
+          boolean getBoolStatus = mmkv.decodeBool(key);
+          result.success(getBoolStatus);
+          break;
+        case "setInt":
+          boolean setIntStatus;
+          if (value instanceof Long) {
+            setIntStatus = mmkv.encode(key, (long) value);
+          } else {
+            setIntStatus = mmkv.encode(key, (int) value);
+          }
+          result.success(setIntStatus);
+          break;
+        case "getInt":
+          long getLongStatus = mmkv.decodeLong(key);
+          result.success(getLongStatus);
+          break;
+        case "setDouble":
+          boolean setDoubleStatus = mmkv.encode(key, (double) value);
+          result.success(setDoubleStatus);
+          break;
+        case "getDouble":
+          double getDoubleStatus = mmkv.decodeDouble(key);
+          result.success(getDoubleStatus);
+          break;
+        case "setString":
+          boolean setStringStatus = mmkv.encode(key, (String) value);
+          result.success(setStringStatus);
+          break;
+        case "getString":
+          String getStringStatus = mmkv.decodeString(key);
+          result.success(getStringStatus);
+          break;
+        case "setBytes":
+          boolean setBytesStatus = mmkv.encode(key, (byte[]) value);
+          result.success(setBytesStatus);
+          break;
+        case "getBytes":
+          byte[] getBytesStatus = mmkv.decodeBytes(key);
+          result.success(getBytesStatus);
+          break;
+        case "contains":
+          result.success(mmkv.contains(key));
+          break;
+        case "getValueSize":
+          result.success(mmkv.getValueSize(key));
+          break;
+        case "removeByKey":
+          mmkv.removeValueForKey(key);
+          result.success(true);
+          break;
+        case "clear":
+          mmkv.clearAll();
+          result.success(true);
+          break;
+        case "count":
+          result.success(mmkv.count());
+          break;
+        case "allKeys":
+          String[] keys = mmkv.allKeys();
+          if (keys == null) {
+            result.success(null);
+          } else {
+            result.success(Arrays.asList(keys));
+          }
+          break;
+        case "totalSize":
+          result.success(mmkv.totalSize());
+          break;
+        case "pageSize":
+          result.success(MMKV.pageSize());
+          break;
+        default:
+          result.notImplemented();
+          break;
+      }
+    } catch (Exception e) {
+      result.error("Exception encountered", call.method, e);
+    }
+  }
+}

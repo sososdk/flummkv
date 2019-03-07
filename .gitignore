@@ -1,0 +1,12 @@
+.DS_Store
+.dart_tool/
+
+.packages
+.pub/
+
+build/
+
+*.iml
+.idea
+res/values/
+lib/generated/i18n.dart

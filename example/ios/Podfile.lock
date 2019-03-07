@@ -1,0 +1,29 @@
+PODS:
+  - flummkv (0.0.1):
+    - Flutter
+    - MMKV
+  - Flutter (1.0.0)
+  - MMKV (1.0.15)
+
+DEPENDENCIES:
+  - flummkv (from `.symlinks/plugins/flummkv/ios`)
+  - Flutter (from `.symlinks/flutter/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MMKV
+
+EXTERNAL SOURCES:
+  flummkv:
+    :path: ".symlinks/plugins/flummkv/ios"
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+
+SPEC CHECKSUMS:
+  flummkv: 42eae5c7d1392fb4973131ccae7e3681414dd778
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  MMKV: 483b0633edc3be228cb3ce1f36e9ab9cd85ed6db
+
+PODFILE CHECKSUM: aff02bfeed411c636180d6812254b2daeea14d09
+
+COCOAPODS: 1.5.3
