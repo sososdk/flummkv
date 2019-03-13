@@ -2,37 +2,37 @@ group 'com.github.sososdk.flummkv'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
+  repositories {
+    google()
+    jcenter()
+  }
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.2'
-    }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:3.3.2'
+  }
 }
 
 rootProject.allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
+  repositories {
+    google()
+    jcenter()
+  }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+  compileSdkVersion 28
 
-    defaultConfig {
-        minSdkVersion 16
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    lintOptions {
-        disable 'InvalidPackage'
-    }
+  defaultConfig {
+    minSdkVersion 16
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  lintOptions {
+    disable 'InvalidPackage'
+  }
 }
 
 dependencies {
-    implementation 'com.tencent:mmkv:1.0.17'
+  implementation 'com.tencent:mmkv:1.0.17'
 }

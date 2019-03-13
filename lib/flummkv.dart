@@ -19,17 +19,43 @@ class Flummkv {
     String key, {
     String id,
     String crypt,
+    T defaultValue,
   }) {
     if (T == bool) {
-      return getBool(key, id: id, crypt: crypt) as Future<T>;
+      return getBool(
+        key,
+        id: id,
+        crypt: crypt,
+        defaultValue: defaultValue as bool,
+      ) as Future<T>;
     } else if (T == int) {
-      return getInt(key, id: id, crypt: crypt) as Future<T>;
+      return getInt(
+        key,
+        id: id,
+        crypt: crypt,
+        defaultValue: defaultValue as int,
+      ) as Future<T>;
     } else if (T == double) {
-      return getDouble(key, id: id, crypt: crypt) as Future<T>;
+      return getDouble(
+        key,
+        id: id,
+        crypt: crypt,
+        defaultValue: defaultValue as double,
+      ) as Future<T>;
     } else if (T == String) {
-      return getString(key, id: id, crypt: crypt) as Future<T>;
+      return getString(
+        key,
+        id: id,
+        crypt: crypt,
+        defaultValue: defaultValue as String,
+      ) as Future<T>;
     } else if (T == Uint8List) {
-      return getUint8List(key, id: id, crypt: crypt) as Future<T>;
+      return getUint8List(
+        key,
+        id: id,
+        crypt: crypt,
+        defaultValue: defaultValue as Uint8List,
+      ) as Future<T>;
     } else {
       throw TypeError();
     }
@@ -40,12 +66,16 @@ class Flummkv {
     String key, {
     String id,
     String crypt,
-  }) {
+    bool defaultValue,
+  }) async {
     final Map<String, dynamic> params = {
       ID: id,
       CRYPT: crypt,
       KEY: key,
     };
+    if (!await _channel.invokeMethod('contains', params)) {
+      return defaultValue;
+    }
     return _channel.invokeMethod('getBool', params);
   }
 
@@ -54,12 +84,16 @@ class Flummkv {
     String key, {
     String id,
     String crypt,
-  }) {
+    int defaultValue,
+  }) async {
     final Map<String, dynamic> params = {
       ID: id,
       CRYPT: crypt,
       KEY: key,
     };
+    if (!await _channel.invokeMethod('contains', params)) {
+      return defaultValue;
+    }
     return _channel.invokeMethod('getInt', params);
   }
 
@@ -68,12 +102,16 @@ class Flummkv {
     String key, {
     String id,
     String crypt,
-  }) {
+    double defaultValue,
+  }) async {
     final Map<String, dynamic> params = {
       ID: id,
       CRYPT: crypt,
       KEY: key,
     };
+    if (!await _channel.invokeMethod('contains', params)) {
+      return defaultValue;
+    }
     return _channel.invokeMethod('getDouble', params);
   }
 
@@ -82,12 +120,16 @@ class Flummkv {
     String key, {
     String id,
     String crypt,
-  }) {
+    String defaultValue,
+  }) async {
     final Map<String, dynamic> params = {
       ID: id,
       CRYPT: crypt,
       KEY: key,
     };
+    if (!await _channel.invokeMethod('contains', params)) {
+      return defaultValue;
+    }
     return _channel.invokeMethod('getString', params);
   }
 
@@ -96,12 +138,16 @@ class Flummkv {
     String key, {
     String id,
     String crypt,
-  }) {
+    Uint8List defaultValue,
+  }) async {
     final Map<String, dynamic> params = {
       ID: id,
       CRYPT: crypt,
       KEY: key,
     };
+    if (!await _channel.invokeMethod('contains', params)) {
+      return defaultValue;
+    }
     return _channel.invokeMethod('getBytes', params);
   }
 
@@ -301,33 +347,58 @@ class Mmkv {
 
   Mmkv({this.id, this.crypt});
 
-  Future<T> get<T>(String key) {
-    return Flummkv.get(key, id: id, crypt: crypt);
+  Future<T> get<T>(String key, {T defaultValue}) {
+    return Flummkv.get(key, id: id, crypt: crypt, defaultValue: defaultValue);
   }
 
   /// Reads a value from persistent storage, throwing an exception if it's not a bool.
-  Future<bool> getBool(String key) {
-    return Flummkv.getBool(key, id: id, crypt: crypt);
+  Future<bool> getBool(String key, {bool defaultValue}) {
+    return Flummkv.getBool(
+      key,
+      id: id,
+      crypt: crypt,
+      defaultValue: defaultValue,
+    );
   }
 
   /// Reads a value from persistent storage, throwing an exception if it's not an int.
-  Future<int> getInt(String key) {
-    return Flummkv.getInt(key, id: id, crypt: crypt);
+  Future<int> getInt(String key, {int defaultValue}) {
+    return Flummkv.getInt(
+      key,
+      id: id,
+      crypt: crypt,
+      defaultValue: defaultValue,
+    );
   }
 
   /// Reads a value from persistent storage, throwing an exception if it's not a double.
-  Future<double> getDouble(String key) {
-    return Flummkv.getDouble(key, id: id, crypt: crypt);
+  Future<double> getDouble(String key, {double defaultValue}) {
+    return Flummkv.getDouble(
+      key,
+      id: id,
+      crypt: crypt,
+      defaultValue: defaultValue,
+    );
   }
 
   /// Reads a value from persistent storage, throwing an exception if it's not a string.
-  Future<String> getString(String key) {
-    return Flummkv.getString(key, id: id, crypt: crypt);
+  Future<String> getString(String key, {String defaultValue}) {
+    return Flummkv.getString(
+      key,
+      id: id,
+      crypt: crypt,
+      defaultValue: defaultValue,
+    );
   }
 
   /// Reads a value from persistent storage, throwing an exception if it's not a `Uint8List`.
-  Future<Uint8List> getUint8List(String key) {
-    return Flummkv.getUint8List(key, id: id, crypt: crypt);
+  Future<Uint8List> getUint8List(String key, {Uint8List defaultValue}) {
+    return Flummkv.getUint8List(
+      key,
+      id: id,
+      crypt: crypt,
+      defaultValue: defaultValue,
+    );
   }
 
   Future<bool> set<T>(String key, T value) {
