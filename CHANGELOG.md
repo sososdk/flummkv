@@ -1,3 +1,7 @@
+## 1.0.21
+
+* Remove `<T>` from `set` method
+
 ## 1.0.20
 
 * Add `defaultValue` param for `get*` method
