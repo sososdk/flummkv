@@ -151,22 +151,22 @@ class Flummkv {
     return _channel.invokeMethod('getBytes', params);
   }
 
-  static Future<bool> set<T>(
+  static Future<bool> set(
     String key,
-    T value, {
+    dynamic value, {
     String id,
     String crypt,
   }) {
-    if (T == bool) {
-      return setBool(key, value as bool, id: id, crypt: crypt);
-    } else if (T == int) {
-      return setInt(key, value as int, id: id, crypt: crypt);
-    } else if (T == double) {
-      return setDouble(key, value as double, id: id, crypt: crypt);
-    } else if (T == String) {
-      return setString(key, value as String, id: id, crypt: crypt);
-    } else if (T == Uint8List) {
-      return setUint8List(key, value as Uint8List, id: id, crypt: crypt);
+    if (value is bool) {
+      return setBool(key, value, id: id, crypt: crypt);
+    } else if (value is int) {
+      return setInt(key, value, id: id, crypt: crypt);
+    } else if (value is double) {
+      return setDouble(key, value, id: id, crypt: crypt);
+    } else if (value is String) {
+      return setString(key, value, id: id, crypt: crypt);
+    } else if (value is Uint8List) {
+      return setUint8List(key, value, id: id, crypt: crypt);
     } else {
       throw TypeError();
     }
@@ -401,7 +401,7 @@ class Mmkv {
     );
   }
 
-  Future<bool> set<T>(String key, T value) {
+  Future<bool> set(String key, dynamic value) {
     return Flummkv.set(key, value, id: id, crypt: crypt);
   }
 
