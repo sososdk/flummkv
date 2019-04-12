@@ -50,17 +50,29 @@ static inline BOOL isEmpty(id thing) {
     if ([method isEqualToString:@"setBool"]) {
         result([NSNumber numberWithBool:[mmkv setBool:((NSNumber*)value).boolValue forKey:key]]);
     } else if ([method isEqualToString:@"getBool"]) {
-        result([NSNumber numberWithBool:[mmkv getBoolForKey:key]]);
+        if ([mmkv containsKey:key]) {
+            result([NSNumber numberWithBool:[mmkv getBoolForKey:key]]);
+        } else {
+            result(nil);
+        }
     }
     else if ([method isEqualToString:@"setInt"]) {
         result([NSNumber numberWithBool:[mmkv setInt64:((NSNumber*)value).longValue forKey:key]]);
     } else if ([method isEqualToString:@"getInt"]) {
-        result([NSNumber numberWithLong:[mmkv getInt64ForKey:key]]);
+        if ([mmkv containsKey:key]) {
+            result([NSNumber numberWithLong:[mmkv getInt64ForKey:key]]);
+        } else {
+            result(nil);
+        }
     }
     else if ([method isEqualToString:@"setDouble"]) {
         result([NSNumber numberWithBool:[mmkv setDouble:((NSNumber*)value).doubleValue forKey:key]]);
     } else if ([method isEqualToString:@"getDouble"]) {
-        result([NSNumber numberWithDouble:[mmkv getDoubleForKey:key]]);
+        if ([mmkv containsKey:key]) {
+            result([NSNumber numberWithDouble:[mmkv getDoubleForKey:key]]);
+        } else {
+            result(nil);
+        }
     }
     else if ([method isEqualToString:@"setString"]) {
         result([NSNumber numberWithBool:[mmkv setString:(NSString*)value forKey:key]]);

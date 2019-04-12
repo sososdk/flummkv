@@ -53,8 +53,12 @@ public class FlummkvPlugin implements MethodCallHandler {
           result.success(setBoolStatus);
           break;
         case "getBool":
-          boolean getBoolStatus = mmkv.decodeBool(key);
-          result.success(getBoolStatus);
+          if (mmkv.contains(key)) {
+            boolean getBoolStatus = mmkv.decodeBool(key);
+            result.success(getBoolStatus);
+          } else {
+            result.success(null);
+          }
           break;
         case "setInt":
           boolean setIntStatus;
@@ -66,16 +70,24 @@ public class FlummkvPlugin implements MethodCallHandler {
           result.success(setIntStatus);
           break;
         case "getInt":
-          long getLongStatus = mmkv.decodeLong(key);
-          result.success(getLongStatus);
+          if (mmkv.contains(key)) {
+            long getLongStatus = mmkv.decodeLong(key);
+            result.success(getLongStatus);
+          } else {
+            result.success(null);
+          }
           break;
         case "setDouble":
           boolean setDoubleStatus = mmkv.encode(key, (double) value);
           result.success(setDoubleStatus);
           break;
         case "getDouble":
-          double getDoubleStatus = mmkv.decodeDouble(key);
-          result.success(getDoubleStatus);
+          if (mmkv.contains(key)) {
+            double getDoubleStatus = mmkv.decodeDouble(key);
+            result.success(getDoubleStatus);
+          } else {
+            result.success(null);
+          }
           break;
         case "setString":
           boolean setStringStatus = mmkv.encode(key, (String) value);

@@ -67,15 +67,12 @@ class Flummkv {
     String id,
     String crypt,
     bool defaultValue,
-  }) async {
+  }) {
     final Map<String, dynamic> params = {
       ID: id,
       CRYPT: crypt,
       KEY: key,
     };
-    if (!await _channel.invokeMethod('contains', params)) {
-      return defaultValue;
-    }
     return _channel.invokeMethod('getBool', params);
   }
 
@@ -85,15 +82,12 @@ class Flummkv {
     String id,
     String crypt,
     int defaultValue,
-  }) async {
+  }) {
     final Map<String, dynamic> params = {
       ID: id,
       CRYPT: crypt,
       KEY: key,
     };
-    if (!await _channel.invokeMethod('contains', params)) {
-      return defaultValue;
-    }
     return _channel.invokeMethod('getInt', params);
   }
 
@@ -103,15 +97,12 @@ class Flummkv {
     String id,
     String crypt,
     double defaultValue,
-  }) async {
+  }) {
     final Map<String, dynamic> params = {
       ID: id,
       CRYPT: crypt,
       KEY: key,
     };
-    if (!await _channel.invokeMethod('contains', params)) {
-      return defaultValue;
-    }
     return _channel.invokeMethod('getDouble', params);
   }
 
@@ -121,15 +112,12 @@ class Flummkv {
     String id,
     String crypt,
     String defaultValue,
-  }) async {
+  }) {
     final Map<String, dynamic> params = {
       ID: id,
       CRYPT: crypt,
       KEY: key,
     };
-    if (!await _channel.invokeMethod('contains', params)) {
-      return defaultValue;
-    }
     return _channel.invokeMethod('getString', params);
   }
 
@@ -139,15 +127,12 @@ class Flummkv {
     String id,
     String crypt,
     Uint8List defaultValue,
-  }) async {
+  }) {
     final Map<String, dynamic> params = {
       ID: id,
       CRYPT: crypt,
       KEY: key,
     };
-    if (!await _channel.invokeMethod('contains', params)) {
-      return defaultValue;
-    }
     return _channel.invokeMethod('getBytes', params);
   }
 

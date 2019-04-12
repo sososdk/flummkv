@@ -1,6 +1,6 @@
 name: flummkv
 description: Get or set persistent storage value base on MMKV framework.
-version: 1.0.21
+version: 1.0.22
 author: sososdk <email>
 homepage: https://github.com/sososdk/flummkv
 

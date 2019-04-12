@@ -1,3 +1,7 @@
+## 1.0.22
+
+* Optimize
+
 ## 1.0.21
 
 * Remove `<T>` from `set` method
