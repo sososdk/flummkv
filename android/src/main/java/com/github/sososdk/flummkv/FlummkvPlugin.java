@@ -23,7 +23,7 @@ public class FlummkvPlugin implements MethodCallHandler {
 
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "com.github.sososdk/flummkv");
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), "sososdk.github.com/flummkv");
     channel.setMethodCallHandler(new FlummkvPlugin(registrar.context()));
   }
 

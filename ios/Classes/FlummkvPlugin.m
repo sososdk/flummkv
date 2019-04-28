@@ -16,7 +16,7 @@ static inline BOOL isEmpty(id thing) {
 @implementation FlummkvPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* channel = [FlutterMethodChannel
-                                     methodChannelWithName:@"com.github.sososdk/flummkv"
+                                     methodChannelWithName:@"sososdk.github.com/flummkv"
                                      binaryMessenger:[registrar messenger]];
     FlummkvPlugin* instance = [[FlummkvPlugin alloc] init];
     [registrar addMethodCallDelegate:instance channel:channel];

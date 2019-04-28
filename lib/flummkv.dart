@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 /// a persistent store for simple data.
 class Flummkv {
   static const MethodChannel _channel =
-      const MethodChannel('com.github.sososdk/flummkv');
+      const MethodChannel('sososdk.github.com/flummkv');
   static const String ID = "id";
   static const String CRYPT = "crypt";
   static const String KEY = "key";

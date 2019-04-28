@@ -34,5 +34,5 @@ android {
 }
 
 dependencies {
-  implementation 'com.tencent:mmkv:1.0.17'
+  implementation 'com.tencent:mmkv:1.0.19'
 }
