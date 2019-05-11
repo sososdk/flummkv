@@ -1,3 +1,6 @@
+## 1.0.24
+* Fix: `defaultValue` is inoperative
+
 ## 1.0.23
 * Rename domain
 

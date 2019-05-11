@@ -73,7 +73,7 @@ class Flummkv {
       CRYPT: crypt,
       KEY: key,
     };
-    return _channel.invokeMethod('getBool', params);
+    return _channel.invokeMethod('getBool', params) ?? defaultValue;
   }
 
   /// Reads a value from persistent storage, throwing an exception if it's not an int.
@@ -88,7 +88,7 @@ class Flummkv {
       CRYPT: crypt,
       KEY: key,
     };
-    return _channel.invokeMethod('getInt', params);
+    return _channel.invokeMethod('getInt', params) ?? defaultValue;
   }
 
   /// Reads a value from persistent storage, throwing an exception if it's not a double.
@@ -103,7 +103,7 @@ class Flummkv {
       CRYPT: crypt,
       KEY: key,
     };
-    return _channel.invokeMethod('getDouble', params);
+    return _channel.invokeMethod('getDouble', params) ?? defaultValue;
   }
 
   /// Reads a value from persistent storage, throwing an exception if it's not a string.
@@ -118,7 +118,7 @@ class Flummkv {
       CRYPT: crypt,
       KEY: key,
     };
-    return _channel.invokeMethod('getString', params);
+    return _channel.invokeMethod('getString', params) ?? defaultValue;
   }
 
   /// Reads a value from persistent storage, throwing an exception if it's not a `Uint8List`.
@@ -133,7 +133,7 @@ class Flummkv {
       CRYPT: crypt,
       KEY: key,
     };
-    return _channel.invokeMethod('getBytes', params);
+    return _channel.invokeMethod('getBytes', params) ?? defaultValue;
   }
 
   static Future<bool> set(
