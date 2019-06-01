@@ -1,3 +1,7 @@
+## 1.0.25
+* Update: MMKV ios
+* Add: `encode` and `decode` method
+
 ## 1.0.24
 * Fix: `defaultValue` is inoperative
 

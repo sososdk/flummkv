@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
@@ -14,6 +15,26 @@ class Flummkv {
   static const String VALUE = "value";
 
   Flummkv._();
+
+  static Future<T> decode<T>(
+    String key, {
+    String id,
+    String crypt,
+    T defaultValue,
+    Object reviver(Object key, Object value),
+  }) {
+    if (T != bool && T != int && T != double && T != String && T != Uint8List) {
+      return get<String>(key, id: id, crypt: crypt).then((value) {
+        if (value == null) {
+          return defaultValue;
+        } else {
+          return jsonDecode(value, reviver: reviver);
+        }
+      });
+    } else {
+      return get<T>(key, id: id, crypt: crypt, defaultValue: defaultValue);
+    }
+  }
 
   static Future<T> get<T>(
     String key, {
@@ -144,6 +165,23 @@ class Flummkv {
     return _channel.invokeMethod('getBytes', params).then((value) {
       return value ?? defaultValue;
     });
+  }
+
+  static Future<bool> encode(
+    String key,
+    dynamic value, {
+    String id,
+    String crypt,
+    Object toEncodable(Object nonEncodable),
+  }) {
+    if (value is! bool &&
+        value is! int &&
+        value is! double &&
+        value is! String &&
+        value is! Uint8List) {
+      value = jsonEncode(value, toEncodable: toEncodable);
+    }
+    return set(key, value, id: id, crypt: crypt);
   }
 
   static Future<bool> set(
@@ -342,6 +380,27 @@ class Mmkv {
 
   Mmkv({this.id, this.crypt});
 
+  Future<bool> encode(
+    String key,
+    dynamic value, {
+    Object toEncodable(Object nonEncodable),
+  }) {
+    if (value is! bool &&
+        value is! int &&
+        value is! double &&
+        value is! String &&
+        value is! Uint8List) {
+      value = jsonEncode(value, toEncodable: toEncodable);
+    }
+    return Flummkv.encode(
+      key,
+      value,
+      id: id,
+      crypt: crypt,
+      toEncodable: toEncodable,
+    );
+  }
+
   Future<T> get<T>(String key, {T defaultValue}) {
     return Flummkv.get(key, id: id, crypt: crypt, defaultValue: defaultValue);
   }
@@ -393,6 +452,20 @@ class Mmkv {
       id: id,
       crypt: crypt,
       defaultValue: defaultValue,
+    );
+  }
+
+  Future<T> decode<T>(
+    String key, {
+    T defaultValue,
+    Object reviver(Object key, Object value),
+  }) {
+    return Flummkv.decode(
+      key,
+      id: id,
+      crypt: crypt,
+      defaultValue: defaultValue,
+      reviver: reviver,
     );
   }
 

@@ -99,11 +99,7 @@ static inline BOOL isEmpty(id thing) {
         result([NSNumber numberWithLong:[mmkv count]]);
     }
     else if ([method isEqualToString:@"allKeys"]) {
-        NSMutableArray *keys = [[NSMutableArray alloc] initWithCapacity:12];
-        [mmkv enumerateKeys:^(NSString * _Nonnull key, BOOL * _Nonnull stop) {
-            [keys addObject:key];
-        }];
-        result(keys);
+        result([mmkv allKeys]);
     }
     else if ([method isEqualToString:@"totalSize"]) {
         result([NSNumber numberWithLong:[mmkv totalSize]]);
