@@ -1,3 +1,6 @@
+## 1.0.26
+* Add: `const` constructor
+
 ## 1.0.25
 * Update: MMKV ios
 * Add: `encode` and `decode` method

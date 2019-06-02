@@ -378,7 +378,7 @@ class Mmkv {
   /// cryptKey's length <= 16
   final String crypt;
 
-  Mmkv({this.id, this.crypt});
+  const Mmkv({this.id, this.crypt});
 
   Future<bool> encode(
     String key,
