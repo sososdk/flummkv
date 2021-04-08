@@ -1,30 +1,50 @@
 package com.github.sososdk.flummkv;
 
-import android.content.Context;
+import androidx.annotation.NonNull;
+
 import com.tencent.mmkv.MMKV;
+
+import java.util.Arrays;
+import java.util.Map;
+
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
-import java.util.Arrays;
-import java.util.Map;
 
-/** FlummkvPlugin */
-public class FlummkvPlugin implements MethodCallHandler {
+/**
+ * FlummkvPlugin
+ */
+public class FlummkvPlugin implements FlutterPlugin, MethodCallHandler {
   public static final String ID = "id";
   public static final String CRYPT = "crypt";
   public static final String KEY = "key";
   public static final String VALUE = "value";
 
-  public FlummkvPlugin(Context context) {
-    MMKV.initialize(context);
-  }
+  MethodChannel channel;
 
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
+    MMKV.initialize(registrar.context());
+
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "sososdk.github.com/flummkv");
-    channel.setMethodCallHandler(new FlummkvPlugin(registrar.context()));
+    channel.setMethodCallHandler(new FlummkvPlugin());
+  }
+
+  @Override
+  public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+    MMKV.initialize(binding.getApplicationContext());
+
+    channel = new MethodChannel(binding.getBinaryMessenger(), "sososdk.github.com/flummkv");
+    channel.setMethodCallHandler(this);
+  }
+
+  @Override
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+    channel.setMethodCallHandler(null);
+    channel = null;
   }
 
   @Override
