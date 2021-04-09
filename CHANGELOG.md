@@ -1,3 +1,6 @@
+## 1.0.27
+* chore: migrate to embedding v2.
+
 ## 1.0.26
 * Add: `const` constructor
 
